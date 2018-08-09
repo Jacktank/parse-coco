@@ -1,0 +1,35 @@
+json's type:
+<type 'dict'>
+json.key:
+info
+images
+licenses
+categories
+json.key's type:
+<type 'dict'> <type 'list'> <type 'list'> <type 'list'> 
+
+json[images][0]'s type:
+<type 'dict'>
+json[images][0]'s key:
+license
+file_name
+coco_url
+height
+width
+date_captured
+id
+
+json[licenses][0]'s type:
+<type 'dict'>
+json[licenses][0]'s key:
+url
+id
+name
+
+json[categories][0]'s type:
+<type 'dict'>
+json[categories][0]'s key:
+supercategory
+id
+name
+

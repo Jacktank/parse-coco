@@ -38,8 +38,14 @@ for catId in catIds:
         #    for j in range(m.shape[1]):
         #        if m[i][j] == 1:
         #            cv2.circle(I, (j, i), 2, (0, 0, 255), 1)       
-        rect = anns[0]['bbox']
-        cv2.rectangle(I, (int(rect[0]), int(rect[1])), (int(rect[2]), int(rect[3])), (0, 0, 255), -1)       
+        
+        pts = anns[0]['segmentation'][0]
+        for idx in range(len(pts) / 2):
+            cv2.circle(I, (int(pts[2 * idx + 0]), int(pts[2 * idx + 1])), 2, (0, 0, 255), 1)       
+        
+        #some error in rect, why? 
+        #rect = anns[0]['bbox']
+        #cv2.rectangle(I, (int(rect[0]), int(rect[1])), (int(rect[2]), int(rect[3])), (0, 0, 255), -1)       
         plt.imshow(I)
         plt.axis('off')
         #coco.showAnns(anns)

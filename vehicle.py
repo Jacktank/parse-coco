@@ -25,28 +25,40 @@ print('COCO supercategories: \n{}'.format(' '.join(nms)))
 #catIds = coco.getCatIds(catNms=['bicycle','car','motorcycle','airplane','bus','train','truck','boat']);
 catIds = coco.getCatIds(catNms=['bicycle','car','motorcycle','bus','truck']);
 
+k = 0
+ret = False
 for catId in catIds:
     imgIds = coco.getImgIds(catIds=[catId])
     imgs = coco.loadImgs(imgIds)
     for img in imgs:
-        I = io.imread('%s/image/%s/%s'%(dataDir, dataType, img['file_name']))
+        I = cv2.imread('%s/images/%s/%s'%(dataDir, dataType, img['file_name']))
         annIds = coco.getAnnIds(imgIds=img['id'], catIds=catIds)
         anns = coco.loadAnns(annIds)
-        #m = coco.annToMask(anns[0])
-        #print m.shape
-        #for i in range(m.shape[0]):
-        #    for j in range(m.shape[1]):
-        #        if m[i][j] == 1:
-        #            cv2.circle(I, (j, i), 2, (0, 0, 255), 1)       
-        
+        for idx in range(len(anns)):
+            m = coco.annToMask(anns[idx])
+            print m.shape
+            f = open('./data_%d.txt'%idx, 'w')
+            for i in range(m.shape[0]):
+                for j in range(m.shape[1]):
+                    if m[i][j] == 1:
+                        cv2.circle(I, (j, i), 2, (0, 0, 255), 1)       
+                    f.write(str(m[i][j]) + ' ')
+                f.write('\n')
+            cv2.imshow('output', I)
+            k = cv2.waitKey()
+            if k == 27:
+                cv2.destroyAllWindows()
+                ret = True
+                break
+        if ret:
+            break
         #pts = anns[0]['segmentation'][0]
         #for idx in range(len(pts) / 2):
         #    cv2.circle(I, (int(pts[2 * idx + 0]), int(pts[2 * idx + 1])), 2, (0, 0, 255), 1)       
         
-        #some error in rect, why? 
-        rect = anns[0]['bbox']
-        cv2.rectangle(I, (int(rect[0]), int(rect[1])), (int(rect[0] + rect[2]), int(rect[1] + rect[3])), (0, 0, 255), -1)       
-        plt.imshow(I)
-        plt.axis('off')
+        #cv2.namedWindow('output')
+        #rect = anns[0]['bbox']
+        #cv2.rectangle(I, (int(rect[0]), int(rect[1])), (int(rect[0] + rect[2]), int(rect[1] + rect[3])), (0, 0, 255), 1)       
         #coco.showAnns(anns)
-        plt.show()
+    if ret:
+        break

@@ -23,7 +23,7 @@ print('COCO supercategories: \n{}'.format(' '.join(nms)))
 #get all images containing given categories, select one at random
 #catIds = coco.getCatIds(supNms=['vehicle']);
 #catIds = coco.getCatIds(catNms=['bicycle','car','motorcycle','airplane','bus','train','truck','boat']);
-catIds = coco.getCatIds(catNms=['bicycle','car','motorcycle','bus','truck']);
+#catIds = coco.getCatIds(catNms=['bicycle','car','motorcycle','bus','truck']);
 
 k = 0
 ret = False

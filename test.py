@@ -34,6 +34,8 @@ import scipy.io
 #    print e
 #print len(p)
 
+import os
+os.mkdir('../images/label/test')
 
 #def main(argv):
 #    if 1 == len(argv):
